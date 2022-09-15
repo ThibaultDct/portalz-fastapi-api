@@ -49,6 +49,10 @@ def users():
     users = supabase.table('users').select('*').execute()
     return users
 
+@app.get("/users/{user_id}")
+def get_user_by_id(user_id: str):
+    return supabase.table('users').select('*').eq('id', user_id).execute()
+
 @app.post("/users")
 def new_user(user: models.UserDto):
     hashed_password = user.password.encode('utf-8')
